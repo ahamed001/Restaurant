@@ -252,12 +252,12 @@
         <div class="form-container">
           <h2>Contact Us</h2>
           <h3>Reserve a table, ask for today's special or just send us a message:</h3><br>  
-          <form action="/action_page.php" target="_blank">
+          <form id="myForm">
             <input type="text" placeholder="Your Name" />
             <input type="email" placeholder="E-Mail" />
             <input type="datetime-local" placeholder="Date and time" required name="date" value="2020-11-16T20:00">
             <textarea cols="30" rows="6" placeholder="Type Your Message"></textarea>
-            <button class="button" onclick="submit()" type="submit">SUBMIT</button>
+            <button class="button" type="submit">SUBMIT</button>
            </form>
         </div>
       </div>
@@ -282,14 +282,10 @@
     </footer>
   </body>
 
-  <!--Code for smooth scrolling-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    
     $(document).ready(function () {
-     
       $("a").on("click", function (event) {
-  
         if (this.hash !== "") {
           event.preventDefault();
           var hash = this.hash;
@@ -305,12 +301,24 @@
           );
         } 
       });
+
+      $(document).ready(function () {
+        const currentDate = new Date();
+        const dateString = currentDate.toISOString().substring(0, 16);
+        const dateInput = document.getElementById("dateInput");
+        
+        if (dateInput) {
+          dateInput.value = dateString;
+        }
+
+        document.getElementById("myForm").addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const formDataObject = Object.fromEntries(formData.entries());
+
+          document.getElementById("myForm").reset();
+        });
+      });
     });
-  
-  function submit(){
-  window.location.reload(true);
-   }
-
-</script>  
-
+  </script>
 </html>
